@@ -29,8 +29,6 @@ public class DipendenteService {
     @Autowired
     private Cloudinary cloudinaryUploader;
 
-
-
     private void checkUsernameAndEmail (String username, String email){
         this.dipendenteRepo.
                 findByEmail(email).

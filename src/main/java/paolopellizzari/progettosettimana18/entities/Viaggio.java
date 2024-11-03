@@ -4,6 +4,8 @@ package paolopellizzari.progettosettimana18.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import paolopellizzari.progettosettimana18.enums.StatoViaggio;
+import paolopellizzari.progettosettimana18.payloads.DipendenteDTO;
+import paolopellizzari.progettosettimana18.payloads.ViaggioDTO;
 
 import java.time.LocalDate;
 
@@ -27,9 +29,23 @@ public class Viaggio {
     @Column(nullable = false)
     private String destinazione;
 
-    public Viaggio(LocalDate dataPrenotazione, StatoViaggio statoViaggio, String destinazione) {
-        this.dataViaggio = dataPrenotazione;
+    public Viaggio(LocalDate dataViaggio, StatoViaggio statoViaggio, String destinazione) {
+        this.dataViaggio = dataViaggio;
         this.statoViaggio = statoViaggio;
         this.destinazione = destinazione;
     }
+
+    public Viaggio (ViaggioDTO dto){
+        this.dataViaggio = dto.dataViaggio();
+        this.statoViaggio = dto.statoViaggio();
+        this.destinazione = dto.destinazione();
+    }
+
+    public Viaggio (long id, ViaggioDTO dto){
+        this.id = id;
+        this.dataViaggio = dto.dataViaggio();
+        this.statoViaggio = dto.statoViaggio();
+        this.destinazione = dto.destinazione();
+    }
+
 }

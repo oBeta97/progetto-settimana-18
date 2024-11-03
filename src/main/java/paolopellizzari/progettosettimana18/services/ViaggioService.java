@@ -6,9 +6,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import paolopellizzari.progettosettimana18.entities.Dipendente;
 import paolopellizzari.progettosettimana18.entities.Prenotazione;
 import paolopellizzari.progettosettimana18.entities.Viaggio;
+import paolopellizzari.progettosettimana18.exceptions.BadRequestException;
 import paolopellizzari.progettosettimana18.exceptions.NotFoundException;
+import paolopellizzari.progettosettimana18.payloads.DipendenteDTO;
+import paolopellizzari.progettosettimana18.payloads.ViaggioDTO;
 import paolopellizzari.progettosettimana18.repositories.ViaggioRepository;
 
 @Service
@@ -33,5 +37,41 @@ public class ViaggioService {
 
         return res;
     }
+
+    public Viaggio save (ViaggioDTO dto){
+
+        if(!this.viaggioRepo.
+                findByDataViaggioAndDestinazione(dto.dataViaggio(), dto.destinazione()).
+                isEmpty()
+        ){
+            throw new BadRequestException("Viaggio già esistente");
+        }
+
+        return viaggioRepo.save(new Viaggio(dto));
+    }
+
+    public Viaggio update (ViaggioDTO dto, long idToUpdate){
+
+        this.findById(idToUpdate);
+        if(!this.viaggioRepo.
+                findByDataViaggioAndDestinazione(dto.dataViaggio(), dto.destinazione()).
+                isEmpty()
+        ){
+            throw new BadRequestException("Viaggio già esistente");
+        }
+
+        return this.viaggioRepo.save(new Viaggio(idToUpdate, dto));
+    }
+
+
+    public Viaggio delete (long idToDelete){
+
+        Viaggio res =this.findById(idToDelete);
+
+        this.viaggioRepo.delete(res);
+
+        return res;
+    }
+
 
 }
