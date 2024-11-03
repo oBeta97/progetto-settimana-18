@@ -4,6 +4,8 @@ package paolopellizzari.progettosettimana18.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import paolopellizzari.progettosettimana18.enums.PreferenzaViaggio;
+import paolopellizzari.progettosettimana18.payloads.PrenotazioneDTO;
+
 import java.time.LocalDate;
 
 @Entity
@@ -35,4 +37,19 @@ public class Prenotazione {
     @JoinColumn(name = "id_diendente")
     private Dipendente dipendente;
 
+    public Prenotazione(PreferenzaViaggio preferenzaViaggio, LocalDate dataRichiesta, String note, Viaggio viaggio, Dipendente dipendente) {
+        this.preferenzaViaggio = preferenzaViaggio;
+        this.dataRichiesta = dataRichiesta;
+        this.note = note;
+        this.viaggio = viaggio;
+        this.dipendente = dipendente;
+    }
+
+    public Prenotazione(PrenotazioneDTO dto, Viaggio viaggio, Dipendente dipendente) {
+        this.preferenzaViaggio = dto.preferenzaViaggio();
+        this.dataRichiesta = dto.dataRichiesta();
+        this.note = dto.note();
+        this.viaggio = viaggio;
+        this.dipendente = dipendente;
+    }
 }
