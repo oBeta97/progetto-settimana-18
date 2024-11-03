@@ -19,8 +19,8 @@ public class Viaggio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     private long id;
-    @Column(name = "data_prenotazione", nullable = false)
-    private LocalDate dataPrenotazione;
+    @Column(name = "data_viaggio", nullable = false)
+    private LocalDate dataViaggio;
     @Column(name = "stato_viaggio", nullable = false)
     @Enumerated(EnumType.STRING)
     private StatoViaggio statoViaggio;
@@ -28,7 +28,7 @@ public class Viaggio {
     private String destinazione;
 
     public Viaggio(LocalDate dataPrenotazione, StatoViaggio statoViaggio, String destinazione) {
-        this.dataPrenotazione = dataPrenotazione;
+        this.dataViaggio = dataPrenotazione;
         this.statoViaggio = statoViaggio;
         this.destinazione = destinazione;
     }
